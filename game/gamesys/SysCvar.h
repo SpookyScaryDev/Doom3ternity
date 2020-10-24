@@ -250,6 +250,9 @@ extern idCVar	si_spectators;
 extern idCVar	net_clientSelfSmoothing;
 extern idCVar	net_clientLagOMeter;
 
+// Doom 3ternity cvars
+extern idCVar   doom3ternity_max_air_jumps;
+
 extern const char *si_gameTypeArgs[];
 
 extern const char *ui_skinArgs[];

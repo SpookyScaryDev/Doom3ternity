@@ -610,7 +610,7 @@ void idPhysics_Player::AirMove( void ) {
 	float		wishspeed;
 	float		scale;
 
-    if (airJumps < 1) {
+    if (airJumps < doom3ternity_max_air_jumps.GetInteger()) {
         if (idPhysics_Player::CheckJump()) { // Allow double jump.
             airJumps++; // Actually jumped.
         }
