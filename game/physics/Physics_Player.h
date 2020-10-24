@@ -165,6 +165,9 @@ private:
 	bool					ladder;
 	idVec3					ladderNormal;
 
+    // number of air jumps since touched ground
+    int                     airJumps;
+
 	// results of last evaluate
 	waterLevel_t			waterLevel;
 	int						waterType;

@@ -610,6 +610,12 @@ void idPhysics_Player::AirMove( void ) {
 	float		wishspeed;
 	float		scale;
 
+    if (airJumps < 1) {
+        if (idPhysics_Player::CheckJump()) { // Allow double jump.
+            airJumps++; // Actually jumped.
+        }
+    }
+
 	idPhysics_Player::Friction();
 
 	scale = idPhysics_Player::CmdScale( command );
@@ -1032,6 +1038,7 @@ void idPhysics_Player::CheckGround( void ) {
 
 	groundPlane = true;
 	walking = true;
+    airJumps = 0; // Touched ground so reset air jumps.
 
 	// hitting solid ground will end a waterjump
 	if ( current.movementFlags & PMF_TIME_WATERJUMP ) {
@@ -1202,7 +1209,7 @@ bool idPhysics_Player::CheckJump( void ) {
 
 	addVelocity = 2.0f * maxJumpHeight * -gravityVector;
 	addVelocity *= idMath::Sqrt( addVelocity.Normalize() );
-	current.velocity += addVelocity;
+	current.velocity.z = addVelocity.z; // Set velocity to avoid unpredictable double jumping.
 
 	return true;
 }
@@ -1518,6 +1525,7 @@ idPhysics_Player::idPhysics_Player( void ) {
 	groundMaterial = NULL;
 	ladder = false;
 	ladderNormal.Zero();
+    airJumps = 0;
 	waterLevel = WATERLEVEL_NONE;
 	waterType = 0;
 }
@@ -1587,6 +1595,8 @@ void idPhysics_Player::Save( idSaveGame *savefile ) const {
 	savefile->WriteBool( ladder );
 	savefile->WriteVec3( ladderNormal );
 
+    savefile->WriteInt( airJumps );
+
 	savefile->WriteInt( (int)waterLevel );
 	savefile->WriteInt( waterType );
 }
@@ -1623,6 +1633,8 @@ void idPhysics_Player::Restore( idRestoreGame *savefile ) {
 
 	savefile->ReadBool( ladder );
 	savefile->ReadVec3( ladderNormal );
+
+    savefile->ReadInt( airJumps );
 
 	savefile->ReadInt( (int &)waterLevel );
 	savefile->ReadInt( waterType );
