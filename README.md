@@ -6,14 +6,13 @@ Doom 3ternity is a mod for Doom 3 which incorporates gameplay elements from Doom
 This is my first Doom 3 mod, and I am creating it to learn about modding and the Doom 3 engine. When this mod is in a releasable state, I will update this README.
 
 ### Features:
-* None!
+* Air jumps controlled by "doom3ternity_max_air_jumps"
 
 ### In Progress:
-* Double Jumping
-
-### Planned:
 * Speed up player movement
 * Tweak jump height
+
+### Planned:
 * Speed up weapon switching
 * Speed up shotgun firerate
 * Remove reloading
