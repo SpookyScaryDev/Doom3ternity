@@ -3,7 +3,7 @@ commandline "anim models/weapons/plasmagun/cycles/lower.mb -dest models/md5/weap
 
 numFrames 7
 numJoints 54
-frameRate 24
+frameRate 40
 numAnimatedComponents 42
 
 hierarchy {

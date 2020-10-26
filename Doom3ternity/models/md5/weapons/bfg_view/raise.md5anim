@@ -3,7 +3,7 @@ commandline "anim models/weapons/bfg/cycles/raise.mb -dest models/md5/weapons/bf
 
 numFrames 15
 numJoints 45
-frameRate 24
+frameRate 40
 numAnimatedComponents 95
 
 hierarchy {
