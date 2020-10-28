@@ -132,13 +132,11 @@ void weapon_chaingun::Lower() {
 }
 
 void weapon_chaingun::Idle() {
-	float ammoClip;
 	float avail;
-	float clip_size;
 	
-	clip_size = clipSize();	
+    avail = ammoAvailable();
 	
-	if ( !ammoInClip() ) {
+	if ( !avail ) {
 		weaponOutOfAmmo();
 	} else {
 		weaponReady();
@@ -148,24 +146,10 @@ void weapon_chaingun::Idle() {
 		if ( WEAPON_LOWERWEAPON ) {
 			weaponState( "Lower", CHAINGUN_IDLE_TO_LOWER );
 		}
-		ammoClip = ammoInClip();
 		if ( WEAPON_ATTACK ) {
-			if ( ammoClip > 0 ) {
+			if ( avail ) {
 				weaponState( "Fire", CHAINGUN_IDLE_TO_FIRE );
-			} else if ( ammoAvailable() > 0 ) {
-				if ( autoReload() ) {
-					netReload();
-					weaponState( "Reload", CHAINGUN_IDLE_TO_RELOAD );
-				}
 			}
-		}
-		if ( WEAPON_RELOAD && ( ammoAvailable() > ammoClip ) && ( ammoClip < clip_size ) ) {
-			netReload();
-			weaponState( "Reload", CHAINGUN_IDLE_TO_RELOAD );
-		}
-		if ( WEAPON_NETRELOAD ) {
-			WEAPON_NETRELOAD = false;
-			weaponState( "Reload", CHAINGUN_IDLE_TO_RELOAD );
 		}
 		UpdateBarrel();
 		waitFrame();
@@ -173,24 +157,24 @@ void weapon_chaingun::Idle() {
 }
 
 void weapon_chaingun::Fire() {
-	float ammoClip;
 	float currentTime;
 	float skip;
+    float avail;
+    avail = ammoAvailable();
 	SpinUp();
-	ammoClip = ammoInClip();
-	while( ( current_rate < end_rate ) && WEAPON_ATTACK && !WEAPON_RELOAD && ( ammoClip > 0 ) ) {
+	while( ( current_rate < end_rate ) && WEAPON_ATTACK && !WEAPON_RELOAD && ( avail ) ) {
 		UpdateBarrel();
 		waitFrame();
-		ammoClip = ammoInClip();
+		avail = ammoAvailable();
 	}
 		
 	startSound( "snd_spin", SND_CHANNEL_BODY3, false );
-	ammoClip = ammoInClip();
-	while( WEAPON_ATTACK && !WEAPON_RELOAD && ( ammoClip > 0 ) ) {
+    avail = ammoAvailable();
+	while( WEAPON_ATTACK && !WEAPON_RELOAD && ( avail ) ) {
 		launchProjectiles( CHAINGUN_NUMPROJECTILES, spread, 0, 1.0, 1.0 );
 		startSound( "snd_fire", SND_CHANNEL_WEAPON, false );
-		ammoClip = ammoInClip();
-		if ( ammoClip == CHAINGUN_LOWAMMO ) {
+        avail = ammoAvailable();
+		if ( avail == CHAINGUN_LOWAMMO ) {
 			startSound( "snd_lowammo", SND_CHANNEL_ITEM, false );
 		}
 

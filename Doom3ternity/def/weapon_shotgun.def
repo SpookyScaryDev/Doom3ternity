@@ -62,7 +62,7 @@ entityDef weapon_shotgun {
 	"def_projectile"			"projectile_bullet_shotgun"
 	"ammoType"					"ammo_shells"
 	"ammoRequired"				"1"
-	"clipSize"					"8"
+	"clipSize"					"0"
 	"lowAmmo"					"2"
 	"mtr_flashShader"			"muzzleflash"
 	"flashColor"				"1 0.8 0.4"

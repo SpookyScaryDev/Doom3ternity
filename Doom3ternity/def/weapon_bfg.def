@@ -67,7 +67,7 @@ entityDef weapon_bfg {
 	"def_projectile"			"projectile_bfg"
 	"ammoType"					"ammo_bfg"
 	"ammoRequired"				"1"
-	"clipSize"					"4"
+	"clipSize"					"0"
 	"powerAmmo"					"1"
 	"mtr_flashShader"			"lights/bfg_flare"
 	"flashColor"				"0.8 1 0.7"

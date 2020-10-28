@@ -55,7 +55,7 @@ entityDef weapon_chaingun {
 	"def_projectile"			"projectile_chaingunbullet"
 	"ammoType"					"ammo_belt"
 	"ammoRequired"				"1"
-	"clipSize"					"60"
+	"clipSize"					"0"
 	"lowAmmo"					"10"
 	"mtr_flashShader"			"muzzleflash"
 	"flashColor"				"1 0.8 0.4"

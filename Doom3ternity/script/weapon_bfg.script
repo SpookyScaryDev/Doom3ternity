@@ -61,14 +61,13 @@ void weapon_bfg::Lower() {
 
 void weapon_bfg::Idle() {
 	float currentTime;
-	float ammoClip;
 	float avail;
-	float clip_size;
+
+    avail = ammoAvailable();
 
 	setColor( 0, 0, 0 );
-	clip_size = clipSize();	
 	
-	if ( !ammoInClip() ) {
+	if ( !avail ) {
 		playCycle( ANIMCHANNEL_ALL, "idle_empty" );
 		weaponOutOfAmmo();
 	} else {
@@ -79,25 +78,12 @@ void weapon_bfg::Idle() {
 		if ( WEAPON_LOWERWEAPON ) {
 			weaponState( "Lower", BFG_IDLE_TO_LOWER );
 		}
+        avail = ammoAvailable();
 		currentTime = sys.getTime();
-		ammoClip = ammoInClip();
 		if ( ( currentTime >= next_attack ) && WEAPON_ATTACK ) {
-			if ( ammoClip > 0 ) {
+			if ( avail ) {
 				weaponState( "Fire", BFG_IDLE_TO_FIRE );
-			} else if ( ammoAvailable() > 0 ) {
-				if ( autoReload() ) {
-					netReload();
-					weaponState( "Reload", BFG_IDLE_TO_RELOAD );
-				}
 			}
-		}
-		if ( WEAPON_RELOAD && ( ammoAvailable() > ammoClip ) && ( ammoClip < clip_size ) ) {
-			netReload();
-			weaponState( "Reload", BFG_IDLE_TO_RELOAD );
-		}
-		if ( WEAPON_NETRELOAD ) {
-			WEAPON_NETRELOAD = false;
-			weaponState( "Reload", BFG_IDLE_TO_RELOAD );
 		}
 		waitFrame();
 	}
@@ -150,7 +136,10 @@ void weapon_bfg::Fire() {
 		}
 		playAnim( ANIMCHANNEL_ALL, "fire" );
 		fire_time = sys.getTime();
+        float avail = ammoAvailable();
+        if (power > avail) power = avail-1;
 		launchProjectiles( BFG_NUMPROJECTILES, spread, time_held, 1.0, power );
+        useAmmo(power+1);
 		while( !animDone( ANIMCHANNEL_ALL, BFG_FIRE_TO_IDLE ) ) {
 			current_time = sys.getTime();
 			intensity = 1 - ( ( current_time - fire_time ) / 0.5 );

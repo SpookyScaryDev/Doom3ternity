@@ -61,7 +61,7 @@ entityDef weapon_rocketlauncher {
 	"def_projectile"			"projectile_rocket"
 	"ammoType"					"ammo_rockets"
 	"ammoRequired"				"1"
-	"clipSize"					"5"
+	"clipSize"					"0"
 	"lowAmmo"					"1"
 	"mtr_flashShader"			"muzzleflash"
 	"flashColor"				"1 0.8 0.4"
