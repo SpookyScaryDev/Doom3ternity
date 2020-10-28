@@ -3,7 +3,7 @@ commandline "anim models/weapons/rocketlauncher/cycles/raise.mb -dest models/md5
 
 numFrames 15
 numJoints 47
-frameRate 40
+frameRate 50
 numAnimatedComponents 13
 
 hierarchy {

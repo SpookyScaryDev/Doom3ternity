@@ -3,7 +3,7 @@ commandline "anim models/weapons/grenades/cycles/lower.mb -dest models/md5/weapo
 
 numFrames 6
 numJoints 42
-frameRate 40
+frameRate 50
 numAnimatedComponents 24
 
 hierarchy {

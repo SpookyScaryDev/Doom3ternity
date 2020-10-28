@@ -3,7 +3,7 @@ commandline "anim models/weapons/soulcube/cycles/lower.mb -dest models/md5/weapo
 
 numFrames 6
 numJoints 60
-frameRate 40
+frameRate 50
 numAnimatedComponents 11
 
 hierarchy {

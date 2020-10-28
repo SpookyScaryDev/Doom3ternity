@@ -3,7 +3,7 @@ commandline "anim models/weapons/pistol/fred/cycles/put_away.ma -dest models/md5
 
 numFrames 6
 numJoints 46
-frameRate 40
+frameRate 50
 numAnimatedComponents 22
 
 hierarchy {

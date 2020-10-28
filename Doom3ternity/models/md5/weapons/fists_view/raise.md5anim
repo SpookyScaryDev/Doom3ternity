@@ -3,7 +3,7 @@ commandline "anim models/weapons/berserk/cycles/punch2.mb -dest models/md5/weapo
 
 numFrames 11
 numJoints 25
-frameRate 40
+frameRate 50
 numAnimatedComponents 26
 
 hierarchy {

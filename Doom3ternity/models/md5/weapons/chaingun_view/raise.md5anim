@@ -3,7 +3,7 @@ commandline "anim models/weapons/chaingun/cycles/raise.mb -dest models/md5/weapo
 
 numFrames 15
 numJoints 8
-frameRate 40
+frameRate 50
 numAnimatedComponents 7
 
 hierarchy {

@@ -3,7 +3,7 @@ commandline "anim models/weapons/machinegun/cycles/pullup1.ma -dest models/md5/w
 
 numFrames 15
 numJoints 47
-frameRate 40
+frameRate 50
 numAnimatedComponents 42
 
 hierarchy {

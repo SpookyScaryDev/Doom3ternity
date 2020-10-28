@@ -3,7 +3,7 @@ commandline "anim models/weapons/pistol/fred/cycles/raise.ma -dest models/md5/we
 
 numFrames 15
 numJoints 46
-frameRate 40
+frameRate 50
 numAnimatedComponents 40
 
 hierarchy {
