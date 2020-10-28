@@ -9,13 +9,13 @@ This is my first Doom 3 mod, and I am creating it to learn about modding and the
 * Air jumps controlled by "doom3ternity_max_air_jumps"
 * Increased player movement speed
 * Increased jump height
+* Sped up weapon switching
 
 ### In Progress:
-* Speed up weapon switching
+* Remove reloading
 
 ### Planned:
 * Speed up shotgun firerate
-* Remove reloading
 * Decrease shotgun spread and damage
 * Stop burnaway
 * Tweak gibbing
