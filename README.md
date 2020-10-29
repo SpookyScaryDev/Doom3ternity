@@ -11,14 +11,14 @@ This is my first Doom 3 mod, and I am creating it to learn about modding and the
 * Increased jump height
 * Sped up weapon switching
 * Removed reloading
+* Sped up shotgun firerate
+* Decreased shotgun spread and damage
 
 ### In Progress:
-* Speed up shotgun firerate
-* Decrease shotgun spread and damage
-
-### Planned:
 * Stop burnaway
 * Tweak gibbing
+
+### Planned:
 * Add weapon inspection
 * Add dashing / tweak sprinting
 * Allow weapon centering
