@@ -3,7 +3,7 @@ commandline "anim models/weapons/shotgun/cycles/fire3.mb -dest models/md5/weapon
 
 numFrames 32
 numJoints 47
-frameRate 24
+frameRate 36
 numAnimatedComponents 31
 
 hierarchy {

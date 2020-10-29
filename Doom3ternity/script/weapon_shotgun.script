@@ -4,7 +4,7 @@ weapon_shotgun.script
 
 ***********************************************************************/
 
-#define SHOTGUN_FIRERATE		1.333
+#define SHOTGUN_FIRERATE		0.9
 #define SHOTGUN_LOWAMMO			2
 #define SHOTGUN_RELOADRATE		2
 #define	SHOTGUN_NUMPROJECTILES	13
