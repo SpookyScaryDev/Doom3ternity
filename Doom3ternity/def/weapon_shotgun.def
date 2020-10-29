@@ -88,7 +88,7 @@ entityDef weapon_shotgun {
 	"snd_respawn"				"sound_weapon_respawn"
 	"skin_invisible"			"skins/shotgun_invis"
 	
-	"spread"					"22"
+	"spread"					"6"
 }
 
 entityDef moveable_item_shotgun {
@@ -158,7 +158,7 @@ model viewmodel_shotgun {
 }
 
 entityDef	damage_shotgun {
-	"damage"			"14"
+	"damage"			"9"
 	"kickDir"			"1 0 0"
 
 	"mtr_blob"			"genericDamage"
