@@ -338,3 +338,4 @@ idCVar net_serverDlTable(			"net_serverDlTable",		"",				CVAR_GAME | CVAR_ARCHIV
 
 // Doom 3ternity cvars.
 idCVar doom3ternity_max_air_jumps(  "doom3ternity_max_air_jumps",   "1",        CVAR_GAME |CVAR_INTEGER,  "number of times the player can jump in the air");
+idCVar doom3ternity_gib_health(     "doom3ternity_gib_health",    "-50",        CVAR_GAME |CVAR_INTEGER,  "minimum health an entity can have before it gibs");

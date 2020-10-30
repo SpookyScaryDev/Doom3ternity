@@ -252,6 +252,7 @@ extern idCVar	net_clientLagOMeter;
 
 // Doom 3ternity cvars
 extern idCVar   doom3ternity_max_air_jumps;
+extern idCVar   doom3ternity_gib_health;
 
 extern const char *si_gameTypeArgs[];
 
