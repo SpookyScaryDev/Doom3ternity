@@ -206,6 +206,12 @@ extern idCVar	g_showBrass;
 extern idCVar	g_gun_x;
 extern idCVar	g_gun_y;
 extern idCVar	g_gun_z;
+
+// Doom3ternity
+extern idCVar	g_gun_pitch;
+extern idCVar	g_gun_yaw;
+extern idCVar	g_gun_roll;
+
 extern idCVar	g_viewNodalX;
 extern idCVar	g_viewNodalZ;
 extern idCVar	g_fov;

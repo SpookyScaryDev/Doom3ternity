@@ -277,6 +277,12 @@ idCVar g_showBrass(					"g_showBrass",				"1",			CVAR_GAME | CVAR_ARCHIVE | CVAR
 idCVar g_gun_x(						"g_gunX",					"0",			CVAR_GAME | CVAR_FLOAT, "" );
 idCVar g_gun_y(						"g_gunY",					"0",			CVAR_GAME | CVAR_FLOAT, "" );
 idCVar g_gun_z(						"g_gunZ",					"0",			CVAR_GAME | CVAR_FLOAT, "" );
+
+// Doom3ternity
+idCVar g_gun_pitch(		    		"g_gunPitch",				"0",			CVAR_GAME | CVAR_FLOAT, "" );
+idCVar g_gun_yaw(		    		"g_gunYaw",					"0",			CVAR_GAME | CVAR_FLOAT, "" );
+idCVar g_gun_roll(		    		"g_gunRoll",				"0",			CVAR_GAME | CVAR_FLOAT, "" );
+
 idCVar g_viewNodalX(				"g_viewNodalX",				"0",			CVAR_GAME | CVAR_FLOAT, "" );
 idCVar g_viewNodalZ(				"g_viewNodalZ",				"0",			CVAR_GAME | CVAR_FLOAT, "" );
 idCVar g_fov(						"g_fov",					"90",			CVAR_GAME | CVAR_INTEGER | CVAR_NOCHEAT, "" );

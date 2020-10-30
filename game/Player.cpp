@@ -7087,7 +7087,6 @@ Calculate the bobbing position of the view weapon
 void idPlayer::CalculateViewWeaponPos( idVec3 &origin, idMat3 &axis ) {
 	float		scale;
 	float		fracsin;
-	idAngles	angles;
 	int			delta;
 
 	// CalculateRenderView must have been called first
@@ -7095,7 +7094,8 @@ void idPlayer::CalculateViewWeaponPos( idVec3 &origin, idMat3 &axis ) {
 	const idMat3 &viewAxis = firstPersonViewAxis;
 
 	// these cvars are just for hand tweaking before moving a value to the weapon def
-	idVec3	gunpos( g_gun_x.GetFloat(), g_gun_y.GetFloat(), g_gun_z.GetFloat() );
+	idVec3	 gunpos( g_gun_x.GetFloat(), g_gun_y.GetFloat(), g_gun_z.GetFloat() );
+    idAngles angles( g_gun_pitch.GetFloat(), g_gun_yaw.GetFloat(), g_gun_roll.GetFloat() );
 
 	// as the player changes direction, the gun will take a small lag
 	idVec3	gunOfs = GunAcceleratingOffset();
@@ -7109,9 +7109,9 @@ void idPlayer::CalculateViewWeaponPos( idVec3 &origin, idMat3 &axis ) {
 	}
 
 	// gun angles from bobbing
-	angles.roll		= scale * bobfracsin * 0.005f;
-	angles.yaw		= scale * bobfracsin * 0.01f;
-	angles.pitch	= xyspeed * bobfracsin * 0.005f;
+	angles.roll	  += scale * bobfracsin * 0.005f;
+	angles.yaw	  += scale * bobfracsin * 0.01f;
+	angles.pitch  += xyspeed * bobfracsin * 0.005f;
 
 	// gun angles from turning
 	if ( gameLocal.isMultiplayer ) {
