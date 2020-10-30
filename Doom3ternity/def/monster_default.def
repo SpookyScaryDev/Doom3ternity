@@ -186,4 +186,6 @@ entityDef monster_default {
 	"fx_teleport1"								"fx/teleporter1.fx"
 	"fx_teleport2"								"fx/teleporter2.fx"
 	"fx_teleport3"								"fx/teleporter3.fx"
+
+	"gib"						"1"
 }
