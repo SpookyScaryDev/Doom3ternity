@@ -13,10 +13,11 @@ This is my first Doom 3 mod, and I am creating it to learn about modding and the
 * Removed reloading
 * Sped up shotgun firerate
 * Decreased shotgun spread and damage
+* Stoped burnaway
+* Lowered gibing threshold - controllable with "doom3ternity_gib_health"
 
 ### In Progress:
-* Stop burnaway
-* Tweak gibbing
+
 
 ### Planned:
 * Add weapon inspection
