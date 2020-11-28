@@ -343,5 +343,6 @@ idCVar net_serverDlBaseURL(			"net_serverDlBaseURL",		"",				CVAR_GAME | CVAR_AR
 idCVar net_serverDlTable(			"net_serverDlTable",		"",				CVAR_GAME | CVAR_ARCHIVE, "pak names for which download is provided, separated by ;" );
 
 // Doom 3ternity cvars.
-idCVar doom3ternity_max_air_jumps(  "doom3ternity_max_air_jumps",   "1",        CVAR_GAME |CVAR_INTEGER,  "number of times the player can jump in the air");
-idCVar doom3ternity_gib_health(     "doom3ternity_gib_health",    "-50",        CVAR_GAME |CVAR_INTEGER,  "minimum health an entity can have before it gibs");
+idCVar doom3ternity_front_and_center( "doom3ternity_front_and_center",  "1",    CVAR_GAME |CVAR_BOOL,     "enables centered weapons");
+idCVar doom3ternity_max_air_jumps(    "doom3ternity_max_air_jumps",     "1",    CVAR_GAME |CVAR_INTEGER,  "number of times the player can jump in the air");
+idCVar doom3ternity_gib_health(       "doom3ternity_gib_health",      "-50",    CVAR_GAME |CVAR_INTEGER,  "minimum health an entity can have before it gibs");

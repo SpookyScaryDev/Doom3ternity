@@ -6,6 +6,7 @@ Doom 3ternity is a mod for Doom 3 which incorporates gameplay elements from Doom
 This is my first Doom 3 mod, and I am creating it to learn about modding and the Doom 3 engine. When this mod is in a releasable state, I will update this README.
 
 ### Features:
+* Weapons can be centered using "doom3ternity_front_and_center"
 * Air jumps controlled by "doom3ternity_max_air_jumps"
 * Increased player movement speed
 * Increased jump height
@@ -13,15 +14,14 @@ This is my first Doom 3 mod, and I am creating it to learn about modding and the
 * Removed reloading
 * Sped up shotgun firerate
 * Decreased shotgun spread and damage
-* Stoped burnaway
+* Stopped burnaway
 * Lowered gibing threshold - controllable with "doom3ternity_gib_health"
 
 ### In Progress:
-* Allow weapon centering
+* Add dashing / tweak sprinting
 
 ### Planned:
 * Add weapon inspection
-* Add dashing / tweak sprinting
 * Add glory kills
 * Add a campaign with new maps
 * Add meathook

@@ -1879,8 +1879,13 @@ void idWeapon::PresentWeapon( bool showViewModel ) {
 	playerViewOrigin = owner->firstPersonViewOrigin;
 	playerViewAxis = owner->firstPersonViewAxis;
 
-    viewWeaponOrigin = viewCenterPosOffset;
-    viewWeaponAxis = viewCenterAngleOffset.ToMat3();
+    if (doom3ternity_front_and_center.GetBool()) {
+        viewWeaponOrigin = viewCenterPosOffset;
+        viewWeaponAxis = viewCenterAngleOffset.ToMat3();
+    } else {
+        viewWeaponOrigin.Zero();
+        viewWeaponAxis.Identity();
+    }
 
 	// calculate weapon position based on player movement bobbing
     owner->CalculateViewWeaponPos(viewWeaponOrigin, viewWeaponAxis);
