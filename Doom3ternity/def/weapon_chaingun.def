@@ -42,6 +42,8 @@ entityDef weapon_chaingun {
 	"joint_attach"				"CHAINGUN_ATTACHER"
 	"def_dropItem"				"moveable_item_chaingun"
 
+    "center_pos" "0 2.45 0"
+
 	"inv_name"					"Chaingun"
 	"inv_weapon"				"weapon_chaingun"
 	"inv_ammo_belt"				"30"

@@ -62,6 +62,9 @@ entityDef weapon_pistol {
 	"joint_attach"				"PISTOL_ATTACHER"
 	"def_dropItem"				"moveable_item_pistol"
 
+    "center_pos"    "0 4.6 0"
+    "center_angles" "0 -1 0"
+
 	"inv_name"					"Pistol"
 	"inv_weapon"				"weapon_pistol"
 	"inv_item"					"5"

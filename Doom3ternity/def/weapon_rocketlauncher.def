@@ -48,6 +48,8 @@ entityDef weapon_rocketlauncher {
 	"joint_attach"				"RL_ATTACHER"
 	"def_dropItem"				"moveable_item_rocketlauncher"
 
+    "center_pos" "0 2.9 0"
+
 	"inv_name"					"Rocket Launcher"
 	"inv_weapon"				"weapon_rocketlauncher"
 	"inv_ammo_rockets"			"5"

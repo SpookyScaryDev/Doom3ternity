@@ -39,6 +39,8 @@ entityDef weapon_bfg {
 	"joint_attach"				"BFG_ATTACHER"
 	"def_dropItem"				"moveable_item_bfg"
 
+    "center_pos" "0 7.8 -0.5"
+
 	"inv_name"					"BFG-9000"
 	"inv_weapon"				"weapon_bfg"
 	"inv_ammo_bfg"				"4"

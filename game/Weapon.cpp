@@ -637,6 +637,10 @@ void idWeapon::Clear( void ) {
 	playerViewAxis.Identity();
 	playerViewOrigin.Zero();
 	viewWeaponAxis.Identity();
+
+    viewCenterPosOffset.Zero();
+    viewCenterAngleOffset.Zero();
+
 	viewWeaponOrigin.Zero();
 	muzzleAxis.Identity();
 	muzzleOrigin.Zero();
@@ -781,6 +785,9 @@ void idWeapon::GetWeaponDef( const char *objectname, int ammoinclip ) {
 	assert( owner );
 
 	weaponDef			= gameLocal.FindEntityDef( objectname );
+
+    viewCenterPosOffset   = weaponDef->dict.GetVector("center_pos");
+    viewCenterAngleOffset = weaponDef->dict.GetAngles("center_angles");
 
 	ammoType			= GetAmmoNumForName( weaponDef->dict.GetString( "ammoType" ) );
 	ammoRequired		= weaponDef->dict.GetInt( "ammoRequired" );
@@ -1872,8 +1879,11 @@ void idWeapon::PresentWeapon( bool showViewModel ) {
 	playerViewOrigin = owner->firstPersonViewOrigin;
 	playerViewAxis = owner->firstPersonViewAxis;
 
+    viewWeaponOrigin = viewCenterPosOffset;
+    viewWeaponAxis = viewCenterAngleOffset.ToMat3();
+
 	// calculate weapon position based on player movement bobbing
-	owner->CalculateViewWeaponPos( viewWeaponOrigin, viewWeaponAxis );
+    owner->CalculateViewWeaponPos(viewWeaponOrigin, viewWeaponAxis);
 
 	// hide offset is for dropping the gun when approaching a GUI or NPC
 	// This is simpler to manage than doing the weapon put-away animation

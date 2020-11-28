@@ -7099,7 +7099,7 @@ void idPlayer::CalculateViewWeaponPos( idVec3 &origin, idMat3 &axis ) {
 
 	// as the player changes direction, the gun will take a small lag
 	idVec3	gunOfs = GunAcceleratingOffset();
-	origin = viewOrigin + ( gunpos + gunOfs ) * viewAxis;
+	origin = viewOrigin + (origin + gunpos + gunOfs ) * viewAxis;
 
 	// on odd legs, invert some angles
 	if ( bobCycle & 128 ) {
@@ -7139,7 +7139,7 @@ void idPlayer::CalculateViewWeaponPos( idVec3 &origin, idMat3 &axis ) {
 	angles.yaw		+= fracsin;
 	angles.pitch	+= fracsin;
 
-	axis = angles.ToMat3() * viewAxis;
+	axis *= angles.ToMat3() * viewAxis;
 }
 
 /*

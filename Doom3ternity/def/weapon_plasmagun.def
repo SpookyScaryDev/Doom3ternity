@@ -52,6 +52,9 @@ entityDef weapon_plasmagun {
 	"joint_attach"				"pgATTACHER"
 	"def_dropItem"				"moveable_item_plasmagun"
 
+    "center_pos"    "0 7.05 0"
+    "center_angles" "0 -6 -5"
+
 	"inv_name"					"Plasma Gun"
 	"inv_weapon"				"weapon_plasmagun"
 	"inv_ammo_cells"			"50"

@@ -202,6 +202,9 @@ private:
 	idVec3					viewWeaponOrigin;
 	idMat3					viewWeaponAxis;
 
+    idVec3                  viewCenterPosOffset;
+    idAngles                viewCenterAngleOffset;
+
 	// the muzzle bone's position, used for launching projectiles and trailing smoke
 	idVec3					muzzleOrigin;
 	idMat3					muzzleAxis;

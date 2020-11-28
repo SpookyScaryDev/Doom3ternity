@@ -46,6 +46,8 @@ entityDef weapon_machinegun {
 	"joint_attach"				"MGATTACHER"
 	"def_dropItem"				"moveable_item_machinegun"
 
+    "center_pos" "0 2.79 0"
+
 	"weaponAngleOffsetAverages" "10"
 	"weaponAngleOffsetScale" 	".25"
 	"weaponAngleOffsetMax"		"15"

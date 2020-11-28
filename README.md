@@ -17,11 +17,11 @@ This is my first Doom 3 mod, and I am creating it to learn about modding and the
 * Lowered gibing threshold - controllable with "doom3ternity_gib_health"
 
 ### In Progress:
-
+* Allow weapon centering
 
 ### Planned:
 * Add weapon inspection
 * Add dashing / tweak sprinting
-* Allow weapon centering
 * Add glory kills
 * Add a campaign with new maps
+* Add meathook
