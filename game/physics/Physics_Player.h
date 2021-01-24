@@ -97,8 +97,12 @@ public:
 	bool					HasSteppedUp( void ) const;
 	float					GetStepUp( void ) const;
 	bool					IsCrouching( void ) const;
+    float                   GetPreDashSpeed( void ) const;
+    bool                    IsDashing( void ) const;
 	bool					OnLadder( void ) const;
 	const idVec3 &			PlayerGetOrigin( void ) const;	// != GetOrigin
+
+    void                    StartDash( void );
 
 public:	// common physics interface
 	bool					Evaluate( int timeStepMSec, int endTimeMSec );
@@ -168,6 +172,10 @@ private:
     // number of air jumps since touched ground
     int                     airJumps;
 
+    // dashing
+    bool                    dashing;
+    float                   preDashSpeed;
+
 	// results of last evaluate
 	waterLevel_t			waterLevel;
 	int						waterType;
@@ -183,6 +191,7 @@ private:
 	void					AirMove( void );
 	void					WalkMove( void );
 	void					DeadMove( void );
+    void                    DashMove( void );
 	void					NoclipMove( void );
 	void					SpectatorMove( void );
 	void					LadderMove( void );

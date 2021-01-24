@@ -1286,6 +1286,15 @@ void idPlayer::Init( void ) {
 		}
 	}
 
+    // set the doom3ternity_ cvars
+    if (!gameLocal.isMultiplayer || gameLocal.isServer) {
+        kv = spawnArgs.MatchPrefix("doom3ternity_", NULL);
+        while (kv) {
+            cvarSystem->SetCVarString(kv->GetKey(), kv->GetValue());
+            kv = spawnArgs.MatchPrefix("doom3ternity_", kv);
+        }
+    }
+
 	// disable stamina on hell levels
 	if ( gameLocal.world && gameLocal.world->spawnArgs.GetBool( "no_stamina" ) ) {
 		pm_stamina.SetFloat( 0.0f );
@@ -2737,7 +2746,7 @@ void idPlayer::UpdateConditions( void ) {
 		AI_STRAFE_RIGHT	= false;
 	}
 
-	AI_RUN			= ( usercmd.buttons & BUTTON_RUN ) && ( ( !pm_stamina.GetFloat() ) || ( stamina > pm_staminathreshold.GetFloat() ) );
+	AI_RUN			= ( usercmd.buttons & BUTTON_RUN ) /*&& ( ( !pm_stamina.GetFloat() ) || ( stamina > pm_staminathreshold.GetFloat() ) )*/;
 	AI_DEAD			= ( health <= 0 );
 }
 
@@ -4720,11 +4729,19 @@ void idPlayer::BobCycle( const idVec3 &pushVelocity ) {
 	// calculate speed and cycle to be used for
 	// all cyclic walking effects
 	//
-	velocity = physicsObj.GetLinearVelocity() - pushVelocity;
+    if (physicsObj.IsDashing()) {
+        velocity = physicsObj.GetLinearVelocity();
+        velocity.Normalize();
+        velocity *= physicsObj.GetPreDashSpeed();
+        velocity -= pushVelocity;
+    } else {
+	    velocity = physicsObj.GetLinearVelocity() - pushVelocity;
+    }
 
 	gravityDir = physicsObj.GetGravityNormal();
 	vel = velocity - ( velocity * gravityDir ) * gravityDir;
 	xyspeed = vel.LengthFast();
+    if (xyspeed >= pm_walkspeed.GetFloat()) xyspeed = pm_walkspeed.GetFloat();
 
 	// do not evaluate the bob for other clients
 	// when doing a spectate follow, don't do any weapon bobbing
@@ -4766,11 +4783,11 @@ void idPlayer::BobCycle( const idVec3 &pushVelocity ) {
 	viewaxis = viewAngles.ToMat3() * physicsObj.GetGravityAxis();
 
 	// add angles based on velocity
-	delta = velocity * viewaxis[0];
-	viewBobAngles.pitch += delta * pm_runpitch.GetFloat();
+    delta = velocity * viewaxis[0];
+    viewBobAngles.pitch += delta * pm_runpitch.GetFloat();
 
-	delta = velocity * viewaxis[1];
-	viewBobAngles.roll -= delta * pm_runroll.GetFloat();
+    delta = velocity * viewaxis[1];
+    viewBobAngles.roll -= delta * pm_runroll.GetFloat();
 
 	// add angles based on bob
 	// make sure the bob is visible even at low speeds
@@ -5624,6 +5641,15 @@ void idPlayer::PerformImpulse( int impulse ) {
 			UseVehicle();
 			break;
 		}
+        case IMPULSE_41: {
+            float maxDashes = (float)doom3ternity_max_dashes.GetInteger();
+            int currentDashesRemaining = stamina / ((1.0f / maxDashes) * pm_stamina.GetFloat());
+            if (currentDashesRemaining > 0) {
+                physicsObj.StartDash();
+                stamina = ((currentDashesRemaining - 1.0f) / maxDashes) * pm_stamina.GetFloat();
+            }
+            break;
+        }
 	}
 }
 
@@ -5696,19 +5722,19 @@ void idPlayer::AdjustSpeed( void ) {
 		speed = pm_noclipspeed.GetFloat();
 		bobFrac = 0.0f;
 	} else if ( !physicsObj.OnLadder() && ( usercmd.buttons & BUTTON_RUN ) && ( usercmd.forwardmove || usercmd.rightmove ) && ( usercmd.upmove >= 0 ) ) {
-		if ( !gameLocal.isMultiplayer && !physicsObj.IsCrouching() && !PowerUpActive( ADRENALINE ) ) {
-			stamina -= MS2SEC( gameLocal.msec );
-		}
-		if ( stamina < 0 ) {
-			stamina = 0;
-		}
-		if ( ( !pm_stamina.GetFloat() ) || ( stamina > pm_staminathreshold.GetFloat() ) ) {
-			bobFrac = 1.0f;
-		} else if ( pm_staminathreshold.GetFloat() <= 0.0001f ) {
-			bobFrac = 0.0f;
-		} else {
-			bobFrac = stamina / pm_staminathreshold.GetFloat();
-		}
+		//if ( !gameLocal.isMultiplayer && !physicsObj.IsCrouching() && !PowerUpActive( ADRENALINE ) ) {
+		//	stamina -= MS2SEC( gameLocal.msec );
+		//}
+		//if ( stamina < 0 ) {
+		//	stamina = 0;
+		//}
+		//if ( ( !pm_stamina.GetFloat() ) || ( stamina > pm_staminathreshold.GetFloat() ) ) {
+		//bobFrac = 1.0f;
+		//} else if ( pm_staminathreshold.GetFloat() <= 0.0001f ) {
+		//	bobFrac = 0.0f;
+		//} else {
+		//	bobFrac = stamina / pm_staminathreshold.GetFloat();
+		//}
 		speed = pm_walkspeed.GetFloat() * ( 1.0f - bobFrac ) + pm_runspeed.GetFloat() * bobFrac;
 	} else {
 		rate = pm_staminarate.GetFloat();
@@ -5732,7 +5758,7 @@ void idPlayer::AdjustSpeed( void ) {
 		speed *= 0.33f;
 	}
 
-	physicsObj.SetSpeed( speed, pm_crouchspeed.GetFloat() );
+    physicsObj.SetSpeed( speed, pm_crouchspeed.GetFloat() );
 }
 
 /*

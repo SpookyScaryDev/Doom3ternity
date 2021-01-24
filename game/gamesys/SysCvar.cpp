@@ -346,3 +346,5 @@ idCVar net_serverDlTable(			"net_serverDlTable",		"",				CVAR_GAME | CVAR_ARCHIV
 idCVar doom3ternity_front_and_center( "doom3ternity_front_and_center",  "1",    CVAR_GAME |CVAR_BOOL,     "enables centered weapons");
 idCVar doom3ternity_max_air_jumps(    "doom3ternity_max_air_jumps",     "1",    CVAR_GAME |CVAR_INTEGER,  "number of times the player can jump in the air");
 idCVar doom3ternity_gib_health(       "doom3ternity_gib_health",      "-50",    CVAR_GAME |CVAR_INTEGER,  "minimum health an entity can have before it gibs");
+idCVar doom3ternity_max_dashes(       "doom3ternity_max_dashes",        "2",    CVAR_GAME |CVAR_INTEGER,  "max times the player can dash before having to recharge");
+idCVar doom3ternity_dash_speed(       "doom3ternity_dash_speed",     "5000",    CVAR_GAME |CVAR_INTEGER,  "speed player moves while dashing");

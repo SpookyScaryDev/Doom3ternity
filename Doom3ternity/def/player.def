@@ -784,9 +784,14 @@ entityDef player_base {
 	"pm_maxviewpitch"					"89"	// looking down
 	"pm_stamina"						"24"
 	"pm_staminathreshold"				"4"
-	"pm_staminarate"					"0.75"
+	"pm_staminarate"					"5"
 	"pm_crouchheight"					"38"
 	"pm_crouchviewheight"				"32"
+
+    "doom3ternity_max_air_jumps"        "1"
+
+    "doom3ternity_max_dashes"           "2"
+    "doom3ternity_dash_speed"           "5000"
 
 	"pm_normalheight"					"74"
 	"pm_normalviewheight"				"68"

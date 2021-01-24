@@ -51,6 +51,7 @@ const float PM_AIRFRICTION		= 0.0f;
 const float PM_WATERFRICTION	= 1.0f;
 const float PM_FLYFRICTION		= 3.0f;
 const float PM_NOCLIPFRICTION	= 12.0f;
+const float PM_DASHFRICTION     = 12.0f;
 
 const float MIN_WALK_NORMAL		= 0.7f;		// can't walk on very steep slopes
 const float OVERCLIP			= 1.001f;
@@ -467,6 +468,9 @@ void idPhysics_Player::Friction( void ) {
 	if ( current.movementType == PM_SPECTATOR ) {
 		drop += speed * PM_FLYFRICTION * frametime;
 	}
+    else if (dashing) {
+        drop += speed * PM_DASHFRICTION * frametime;
+    }
 	// apply ground friction
 	else if ( walking && waterLevel <= WATERLEVEL_FEET ) {
 		// no friction on slick surfaces
@@ -771,6 +775,28 @@ void idPhysics_Player::DeadMove( void ) {
 		current.velocity.Normalize();
 		current.velocity *= forward;
 	}
+}
+
+/*
+==============
+idPhysics_Player::DashMove
+==============
+*/
+void idPhysics_Player::DashMove( void ) {
+    float		scale, wishspeed;
+    idVec3	    wishvel;
+    idVec3		wishdir;
+
+    idPhysics_Player::Friction();
+
+    if (current.velocity.Length() <= preDashSpeed) dashing = false;
+
+    wishdir = current.velocity;
+    wishspeed = wishdir.Normalize();
+
+    idPhysics_Player::Accelerate(wishdir, wishspeed, 1.0);
+
+    idPhysics_Player::SlideMove( false, true, true, true );
 }
 
 /*
@@ -1403,7 +1429,9 @@ void idPhysics_Player::MovePlayer( int msec ) {
 	if ( current.movementType == PM_DEAD ) {
 		// dead
 		idPhysics_Player::DeadMove();
-	}
+	} else if (dashing ) {
+        idPhysics_Player::DashMove();
+    }
 	else if ( ladder ) {
 		// going up or down a ladder
 		idPhysics_Player::LadderMove();
@@ -1490,6 +1518,24 @@ bool idPhysics_Player::IsCrouching( void ) const {
 
 /*
 ================
+idPhysics_Player::GetPreDashSpeed
+================
+*/
+float idPhysics_Player::GetPreDashSpeed(void) const {
+    return preDashSpeed;
+}
+
+/*
+================
+idPhysics_Player::IsDashing
+================
+*/
+bool idPhysics_Player::IsDashing( void ) const {
+    return dashing;
+}
+
+/*
+================
 idPhysics_Player::OnLadder
 ================
 */
@@ -1526,6 +1572,8 @@ idPhysics_Player::idPhysics_Player( void ) {
 	ladder = false;
 	ladderNormal.Zero();
     airJumps = 0;
+    dashing = false;
+    preDashSpeed = 0.0;
 	waterLevel = WATERLEVEL_NONE;
 	waterType = 0;
 }
@@ -1597,6 +1645,9 @@ void idPhysics_Player::Save( idSaveGame *savefile ) const {
 
     savefile->WriteInt( airJumps );
 
+    savefile->WriteBool(dashing);
+    savefile->WriteFloat(preDashSpeed);
+
 	savefile->WriteInt( (int)waterLevel );
 	savefile->WriteInt( waterType );
 }
@@ -1635,6 +1686,9 @@ void idPhysics_Player::Restore( idRestoreGame *savefile ) {
 	savefile->ReadVec3( ladderNormal );
 
     savefile->ReadInt( airJumps );
+
+    savefile->ReadBool( dashing );
+    savefile->ReadFloat( preDashSpeed );
 
 	savefile->ReadInt( (int &)waterLevel );
 	savefile->ReadInt( waterType );
@@ -1866,6 +1920,25 @@ idPhysics_Player::GetOrigin
 */
 const idVec3 & idPhysics_Player::PlayerGetOrigin( void ) const {
 	return current.origin;
+}
+
+/*
+================
+idPhysics_Player::StartDash
+================
+*/
+void idPhysics_Player::StartDash( void ) {
+    dashing = true;
+    preDashSpeed = current.velocity.Length();
+
+    idVec3 forward(viewForward.x, viewForward.y, 0.0);
+    idVec3 right  (viewRight.x,   viewRight.y,   0.0);
+    idVec3 direction = forward * command.forwardmove + right * command.rightmove;
+    direction.Normalize();
+
+    if (direction.Length() == 0) direction = forward;
+
+    current.velocity = direction * doom3ternity_dash_speed.GetInteger();
 }
 
 /*
