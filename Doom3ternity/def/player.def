@@ -639,6 +639,14 @@ model model_sp_marine {
 	anim soulcube_aim					models/md5/characters/npcs/playermoves/soulcube_idle_down.md5anim, models/md5/characters/npcs/playermoves/soulcube_idle.md5anim, models/md5/characters/npcs/playermoves/soulcube_idle_up.md5anim
 	anim soulcube_fire					models/md5/characters/npcs/playermoves/soulcube_fire.md5anim, models/md5/characters/npcs/playermoves/soulcube_fire.md5anim, models/md5/characters/npcs/playermoves/soulcube_fire.md5anim
 	anim soulcube_lower					models/md5/characters/npcs/playermoves/lowerwep.md5anim
+
+	anim shotgun_double_raise			models/md5/characters/npcs/playermoves/raisewep.md5anim
+	anim shotgun_double_idle			models/md5/characters/npcs/playermoves/shotgun_idle_down.md5anim, models/md5/characters/npcs/playermoves/shotgun_idle.md5anim, models/md5/characters/npcs/playermoves/shotgun_idle_up.md5anim
+	anim shotgun_double_aim				models/md5/characters/npcs/playermoves/shotgun_aim_down.md5anim, models/md5/characters/npcs/playermoves/shotgun_aim.md5anim, models/md5/characters/npcs/playermoves/shotgun_aim_up.md5anim
+	anim shotgun_double_fire1			models/md5/characters/npcs/playermoves/shotgun_fire_down.md5anim, models/md5/characters/npcs/playermoves/shotgun_fire1.md5anim, models/md5/characters/npcs/playermoves/shotgun_fire_up.md5anim
+	anim shotgun_double_reload			models/md5/characters/npcs/playermoves/dbreload.md5anim
+	anim shotgun_double_lower			models/md5/characters/npcs/playermoves/lowerwep.md5anim
+
 }
 
 /***********************************************************************
@@ -679,73 +687,73 @@ entityDef player_base {
 	"weapon2_toggle"					"0"
 	"weapon2_allowempty"				"1"
 	
-	"def_weapon3"						"weapon_machinegun"
+	"def_weapon3"						"weapon_shotgun_double"
 	"weapon3_best"						"1"
 	"weapon3_cycle"						"1"
 	"weapon3_toggle"					"0"
 	"weapon3_allowempty"				"1"
-	
-	"def_weapon4"						"weapon_chaingun"
+    
+    "def_weapon4"						"weapon_machinegun"
 	"weapon4_best"						"1"
 	"weapon4_cycle"						"1"
 	"weapon4_toggle"					"0"
 	"weapon4_allowempty"				"1"
 	
-	"def_weapon5"						"weapon_handgrenade"
-	"weapon5_best"						"0"
+	"def_weapon5"						"weapon_chaingun"
+	"weapon5_best"						"1"
 	"weapon5_cycle"						"1"
 	"weapon5_toggle"					"0"
-	"weapon5_allowempty"				"0"
+	"weapon5_allowempty"				"1"
 	
-	"def_weapon6"						"weapon_plasmagun"
-	"weapon6_best"						"1"
+	"def_weapon6"						"weapon_handgrenade"
+	"weapon6_best"						"0"
 	"weapon6_cycle"						"1"
 	"weapon6_toggle"					"0"
-	"weapon6_allowempty"				"1"
+	"weapon6_allowempty"				"0"
 	
-	"def_weapon7"						"weapon_rocketlauncher"
-	"weapon7_best"						"0"
+	"def_weapon7"						"weapon_plasmagun"
+	"weapon7_best"						"1"
 	"weapon7_cycle"						"1"
 	"weapon7_toggle"					"0"
 	"weapon7_allowempty"				"1"
 	
-	"def_weapon8"						"weapon_bfg"
+	"def_weapon8"						"weapon_rocketlauncher"
 	"weapon8_best"						"0"
 	"weapon8_cycle"						"1"
 	"weapon8_toggle"					"0"
 	"weapon8_allowempty"				"1"
 	
-	"def_weapon9"						"weapon_soulcube"
+	"def_weapon9"						"weapon_bfg"
 	"weapon9_best"						"0"
 	"weapon9_cycle"						"1"
-	"weapon9_toggle"					"1"
+	"weapon9_toggle"					"0"
 	"weapon9_allowempty"				"1"
 	
-	"def_weapon10"						"weapon_chainsaw"
+	"def_weapon10"						"weapon_soulcube"
 	"weapon10_best"						"0"
 	"weapon10_cycle"					"1"
-	"weapon10_toggle"					"0"
+	"weapon10_toggle"					"1"
 	"weapon10_allowempty"				"1"
 	
-	"def_weapon11"						"weapon_flashlight"
+	"def_weapon11"						"weapon_chainsaw"
 	"weapon11_best"						"0"
 	"weapon11_cycle"					"1"
-	"weapon11_toggle"					"1"
+	"weapon11_toggle"					"0"
 	"weapon11_allowempty"				"1"
-	
-	"def_weapon12"						"weapon_pda"
+
+	"def_weapon12"						"weapon_flashlight"
 	"weapon12_best"						"0"
-	"weapon12_cycle"					"0"
-	"weapon12_toggle"					"0"
-	"weapon12_allowempty"				"1"
+	"weapon12_cycle"					"1"
+	"weapon12_toggle"					"1"
+	"weapon12_allowempty"				"1"	
 	
-	"def_weapon13"						""	
+	"def_weapon13"						"weapon_pda"
 	"weapon13_best"						"0"
 	"weapon13_cycle"					"0"
 	"weapon13_toggle"					"0"
-	"weapon13_allowempty"				"0"
+	"weapon13_allowempty"				"1"
 	
-	"def_weapon14"						""
+	"def_weapon14"						""	
 	"weapon14_best"						"0"
 	"weapon14_cycle"					"0"
 	"weapon14_toggle"					"0"
@@ -756,7 +764,7 @@ entityDef player_base {
 	"weapon15_cycle"					"0"
 	"weapon15_toggle"					"0"
 	"weapon15_allowempty"				"0"
-
+	
 	"max_ammo_shells"					"320"
 	"max_ammo_bullets"					"360"
 	"max_ammo_rockets"					"96"
@@ -773,7 +781,7 @@ entityDef player_base {
 	"weapon"							"weapon_fists,weapon_pistol,weapon_flashlight,weapon_pda"
 	"weapon_nightmare"					"weapon_fists,weapon_pistol,weapon_flashlight,weapon_pda,weapon_soulcube"
 	"current_weapon"					"0"
-	
+
 	"pm_jumpheight"						"68"
 	"pm_stepsize"						"16"
 	"pm_crouchspeed"					"180"

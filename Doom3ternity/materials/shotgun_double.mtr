@@ -1,0 +1,67 @@
+
+
+//************************************************************************************************
+//************************************************************************************************
+//WEAPONS
+//************************************************************************************************
+//************************************************************************************************
+
+models/weapons/doublebarrel/doublebarrel
+{
+	noselfshadow
+	renderbump  -size 1024 512 -aa 2 -trace .05 models/weapons/doublebarrel/doublebarrel_local.tga models/weapons/doublebarrel/work/doublebarrel_hp.lwo
+	bumpmap		addnormals (models/weapons/doublebarrel/doublebarrel_local, heightmap (models/weapons/doublebarrel/doublebarrel_bmp.tga, 2) )
+	{
+		blend	diffusemap
+		map		models/weapons/doublebarrel/doublebarrel
+		rgb		.3
+	}
+	specularmap	models/weapons/doublebarrel/doublebarrel_s
+
+}
+
+models/weapons/doublebarrel/doublebarrel_invis
+{
+	noShadows
+	noselfShadow
+	unsmoothedTangents
+	translucent
+
+    bumpmap addnormals (models/weapons/doublebarrel/doublebarrel_local, heightmap (models/weapons/doublebarrel/doublebarrel_bmp.tga, 2) )
+	{
+		blend specularmap
+		map	models/invis_s.tga
+		translate	0, time * 0.6
+	}
+
+}
+
+
+//************************************************************************************************
+//************************************************************************************************
+// HUD
+//************************************************************************************************
+//************************************************************************************************
+gui/hud/shotgundouble
+{
+	{
+		blend blend
+		map guis/assets/hud/icons/doublebarrelw.tga
+		red hud1 [ time * 2 ] 
+		green hud2 [ time * 2 ]
+		blue hud3 [ time * 2 ]
+		alpha parm3
+	}
+}
+
+gui/hud/shotgundoubler
+{
+	{
+		blend blend
+		map guis/assets/hud/icons/doublebarrelw.tga
+		red pdflick [ time * 2 ] 
+		green pdquarterfade [ time * 2 ]
+		blue pdquarterfade [ time * 2 ]
+		alpha parm3
+	}
+}
