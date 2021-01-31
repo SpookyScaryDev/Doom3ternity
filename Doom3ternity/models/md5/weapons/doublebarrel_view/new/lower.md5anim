@@ -3,7 +3,7 @@ commandline "anim models/weapons/doublebarrel/cycles/raise_lower.mb -dest models
 
 numFrames 7
 numJoints 47
-frameRate 24
+frameRate 50
 numAnimatedComponents 36
 
 hierarchy {

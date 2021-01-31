@@ -5,7 +5,7 @@ weapon_shotgun_double.script
 ***********************************************************************/
 
 //#define SHOTGUN_DOUBLE_FIRERATE		1.333
-#define SHOTGUN_DOUBLE_FIRERATE		2.2
+#define SHOTGUN_DOUBLE_FIRERATE		1.333
 
 #define SHOTGUN_DOUBLE_REQUIRED			2
 
