@@ -695,6 +695,8 @@ private:
 	void					Event_LevelTrigger( void );
 	void					Event_Gibbed( void );
 	void					Event_GetIdealWeapon( void );
+
+    void                    Event_StartGrapple( const idVec3& target );
 };
 
 ID_INLINE bool idPlayer::IsReady( void ) {

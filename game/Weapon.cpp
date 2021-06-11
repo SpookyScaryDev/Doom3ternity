@@ -402,6 +402,8 @@ void idWeapon::Restore( idRestoreGame *savefile ) {
 	WEAPON_RAISEWEAPON.LinkTo(	scriptObject, "WEAPON_RAISEWEAPON" );
 	WEAPON_LOWERWEAPON.LinkTo(	scriptObject, "WEAPON_LOWERWEAPON" );
 
+    WEAPON_ALTERNATE_FIRE.LinkTo( scriptObject, "WEAPON_ALTERNATE_FIRE" );
+
 	savefile->ReadObject( reinterpret_cast<idClass *&>( owner ) );
 	worldModel.Restore( savefile );
 
@@ -555,6 +557,8 @@ void idWeapon::Clear( void ) {
 	WEAPON_NETFIRING.Unlink();
 	WEAPON_RAISEWEAPON.Unlink();
 	WEAPON_LOWERWEAPON.Unlink();
+
+    WEAPON_ALTERNATE_FIRE.Unlink();
 
 	if ( muzzleFlashHandle != -1 ) {
 		gameRenderWorld->FreeLightDef( muzzleFlashHandle );
@@ -1005,6 +1009,8 @@ void idWeapon::GetWeaponDef( const char *objectname, int ammoinclip ) {
 	WEAPON_NETFIRING.LinkTo(	scriptObject, "WEAPON_NETFIRING" );
 	WEAPON_RAISEWEAPON.LinkTo(	scriptObject, "WEAPON_RAISEWEAPON" );
 	WEAPON_LOWERWEAPON.LinkTo(	scriptObject, "WEAPON_LOWERWEAPON" );
+
+    WEAPON_ALTERNATE_FIRE.LinkTo( scriptObject, "WEAPON_ALTERNATE_FIRE" );
 
 	spawnArgs = weaponDef->dict;
 
@@ -1512,6 +1518,17 @@ void idWeapon::WeaponStolen( void ) {
 }
 
 /*
+================
+idWeapon::AlternateFire
+================
+*/
+void idWeapon::AlternateFire( void ) {
+    if (isLinked) {
+        WEAPON_ALTERNATE_FIRE = true;
+    }
+}
+
+/*
 =====================
 idWeapon::DropItem
 =====================
@@ -1822,6 +1839,7 @@ void idWeapon::UpdateScript( void ) {
 	}
 
 	WEAPON_RELOAD = false;
+	WEAPON_ALTERNATE_FIRE = false;
 }
 
 /*
@@ -2037,6 +2055,8 @@ void idWeapon::EnterCinematic( void ) {
 		WEAPON_NETFIRING	= false;
 		WEAPON_RAISEWEAPON	= false;
 		WEAPON_LOWERWEAPON	= false;
+
+        WEAPON_ALTERNATE_FIRE = false;
 	}
 
 	disabled = true;

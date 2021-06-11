@@ -19,6 +19,9 @@ object weapon_base {
 				// required by player script.
 	boolean		WEAPON_START_FIRING;
 
+                // Doom3ternity
+    boolean     WEAPON_ALTERNATE_FIRE;
+
 				// called by game
 	void		EnterCinematic();
 	void		ExitCinematic();

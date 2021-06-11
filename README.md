@@ -16,14 +16,16 @@ This is my first Doom 3 mod, and I am creating it to learn about modding and the
 * Decreased shotgun spread and damage
 * Stopped burnaway
 * Lowered gibing threshold - controllable with "doom3ternity_gib_health"
-* Added dashing and removed stamina for sprinting. Max dashes can be controlled with "doom3ternity_max_dashes", dash speed can be controlled with
+* Added dashing and removed stamina for sprinting using _impulse41. Max dashes can be controlled with "doom3ternity_max_dashes", dash speed can be controlled with
  "doom3ternity_dash_speed" and dash regen speed can be controlled with "pm_staminarate"
+* Added super shotgun
+* Add meathook to super shotgun using _impulse42. Speed can be controled using "doom3ternity_grapple_speed"
 
 ### In Progress:
-* Add super shotgun
+* Add effects to the meathook
 
 ### Planned:
 * Add weapon inspection
 * Add glory kills
 * Add a campaign with new maps
-* Add meathook
+

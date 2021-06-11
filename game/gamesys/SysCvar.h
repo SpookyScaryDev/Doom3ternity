@@ -262,6 +262,7 @@ extern idCVar   doom3ternity_max_air_jumps;
 extern idCVar   doom3ternity_gib_health;
 extern idCVar   doom3ternity_max_dashes;
 extern idCVar   doom3ternity_dash_speed;
+extern idCVar   doom3ternity_grapple_speed;
 
 extern const char *si_gameTypeArgs[];
 

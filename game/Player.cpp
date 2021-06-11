@@ -92,6 +92,8 @@ const idEventDef EV_Player_LevelTrigger( "levelTrigger" );
 const idEventDef EV_SpectatorTouch( "spectatorTouch", "et" );
 const idEventDef EV_Player_GetIdealWeapon( "getIdealWeapon", NULL, 's' );
 
+const idEventDef EV_Player_StartGrapple( "startGrapple", "v" );
+
 CLASS_DECLARATION( idActor, idPlayer )
 	EVENT( EV_Player_GetButtons,			idPlayer::Event_GetButtons )
 	EVENT( EV_Player_GetMove,				idPlayer::Event_GetMove )
@@ -111,6 +113,8 @@ CLASS_DECLARATION( idActor, idPlayer )
 	EVENT( EV_Player_LevelTrigger,			idPlayer::Event_LevelTrigger )
 	EVENT( EV_Gibbed,						idPlayer::Event_Gibbed )
 	EVENT( EV_Player_GetIdealWeapon,		idPlayer::Event_GetIdealWeapon )
+
+	EVENT( EV_Player_StartGrapple,	     	idPlayer::Event_StartGrapple )
 END_CLASS
 
 const int MAX_RESPAWN_TIME = 10000;
@@ -5650,6 +5654,18 @@ void idPlayer::PerformImpulse( int impulse ) {
             }
             break;
         }
+        case IMPULSE_42: {
+            // Activate alternate fire.
+            if (gameLocal.isClient) {
+                break;
+            }
+            if (spectating || gameLocal.inCinematic || influenceActive) {
+                break;
+            }
+            if (!weaponGone && !hiddenWeapon && weapon.GetEntity() && weapon.GetEntity()->IsLinked()) {
+                weapon.GetEntity()->AlternateFire();
+            }
+        }
 	}
 }
 
@@ -5980,7 +5996,8 @@ void idPlayer::Move( void ) {
 		physicsObj.SetMovementType( PM_FREEZE );
 	} else {
 		physicsObj.SetContents( CONTENTS_BODY );
-		physicsObj.SetMovementType( PM_NORMAL );
+        // Erm
+		//physicsObj.SetMovementType( PM_NORMAL );
 	}
 
 	if ( spectating ) {
@@ -8506,6 +8523,15 @@ void idPlayer::Event_GetIdealWeapon( void ) {
 	} else {
 		idThread::ReturnString( "" );
 	}
+}
+
+/*
+==================
+idPlayer::Event_StartGrapple
+==================
+*/
+void idPlayer::Event_StartGrapple( const idVec3& target ) {
+    physicsObj.StartGrapple(target);
 }
 
 /*

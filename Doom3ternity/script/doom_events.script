@@ -976,6 +976,9 @@ scriptEvent entity	getWeaponEntity();
 // Opens the player's PDA.
 scriptEvent void	openPDA();
 
+// Starts grapple towards target
+scriptEvent void 	startGrapple( vector target );
+
 // Returns true if the player has the PDA open.
 scriptEvent float	inPDA();
 

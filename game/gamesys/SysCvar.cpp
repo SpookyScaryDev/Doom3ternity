@@ -348,3 +348,4 @@ idCVar doom3ternity_max_air_jumps(    "doom3ternity_max_air_jumps",     "1",    
 idCVar doom3ternity_gib_health(       "doom3ternity_gib_health",      "-50",    CVAR_GAME |CVAR_INTEGER,  "minimum health an entity can have before it gibs");
 idCVar doom3ternity_max_dashes(       "doom3ternity_max_dashes",        "2",    CVAR_GAME |CVAR_INTEGER,  "max times the player can dash before having to recharge");
 idCVar doom3ternity_dash_speed(       "doom3ternity_dash_speed",     "5000",    CVAR_GAME |CVAR_INTEGER,  "speed player moves while dashing");
+idCVar doom3ternity_grapple_speed(    "doom3ternity_grapple_speed",  "1000",    CVAR_GAME |CVAR_INTEGER,  "speed player moves while grappling");

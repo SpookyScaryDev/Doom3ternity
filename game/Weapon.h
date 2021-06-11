@@ -117,6 +117,8 @@ public:
 	bool					CanDrop( void ) const;
 	void					WeaponStolen( void );
 
+    void                    AlternateFire( void );
+
 	// Script state management
 	virtual idThread *		ConstructScriptObject( void );
 	virtual void			DeconstructScriptObject( void );
@@ -167,6 +169,9 @@ private:
 	idScriptBool			WEAPON_NETFIRING;
 	idScriptBool			WEAPON_RAISEWEAPON;
 	idScriptBool			WEAPON_LOWERWEAPON;
+
+    idScriptBool            WEAPON_ALTERNATE_FIRE;
+
 	weaponStatus_t			status;
 	idThread *				thread;
 	idStr					state;

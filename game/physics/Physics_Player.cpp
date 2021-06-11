@@ -468,6 +468,10 @@ void idPhysics_Player::Friction( void ) {
 	if ( current.movementType == PM_SPECTATOR ) {
 		drop += speed * PM_FLYFRICTION * frametime;
 	}
+    else if ( current.movementType == PM_GRAPPLING ) {
+        // Increase friction so we don't go flying when we stop! 
+        drop += speed * PM_NOCLIPFRICTION * frametime;
+    }
     else if (dashing) {
         drop += speed * PM_DASHFRICTION * frametime;
     }
@@ -797,6 +801,58 @@ void idPhysics_Player::DashMove( void ) {
     idPhysics_Player::Accelerate(wishdir, wishspeed, 1.0);
 
     idPhysics_Player::SlideMove( false, true, true, true );
+}
+
+/*
+===============
+idPhysics_Player::GrappleMove
+
+    Modified fly move
+
+===============
+*/
+void idPhysics_Player::GrappleMove( void ) {
+
+    // Use lines to visualse until I add an effect.
+    gameRenderWorld->DebugLine(idVec4(255, 255, 255, 255), current.origin, grappleTarget, 1000);
+
+    idVec3	wishvel;
+    float	wishspeed;
+    idVec3	wishdir;
+    float	scale;
+
+    idVec3	end;
+
+    idPhysics_Player::Friction();
+
+    scale = idPhysics_Player::CmdScale(command);
+
+    // Move towards grapple target.
+    idVec3 forward = grappleTarget - current.origin;
+    idVec3 right = gravityNormal.Cross( forward );
+
+    forward.Normalize();
+    right.Normalize();
+
+    // Allow jumping.
+    CheckJump();
+    if (HasJumped() || current.origin == grappleTarget) {
+        // Jumping and reaching target slows you down.
+        //common->Printf("SLOW DOWN!!\n");
+        current.movementType = PM_NORMAL;
+        wishvel = forward * -3 * doom3ternity_grapple_speed.GetInteger() + right * command.rightmove * 5;
+    } 
+    else {
+        wishvel = forward * doom3ternity_grapple_speed.GetInteger() + right * command.rightmove * 5;
+    }
+
+    wishdir = wishvel;
+    wishspeed = wishdir.Normalize();
+
+    // Lots of acceleration so we don't go flying when we stop!
+    idPhysics_Player::Accelerate(wishdir, wishspeed, PM_ACCELERATE);
+
+    idPhysics_Player::SlideMove(false, false, false, false);
 }
 
 /*
@@ -1409,6 +1465,19 @@ void idPhysics_Player::MovePlayer( int msec ) {
 		command.rightmove = 0;
 		command.upmove = 0;
 	}
+    // grapple
+    if (current.movementType == PM_GRAPPLING) {
+        idVec3 grappleDir = grappleTarget - current.origin;
+        float angle = acos( ( viewForward * grappleDir ) / ( viewForward.Length() * grappleDir.Length() ) );
+        if (angle <= 0.8) {
+            // Stop grappling if you look away.
+            idPhysics_Player::GrappleMove();
+            return;
+        }
+        else {
+            current.movementType = PM_NORMAL;
+        }
+    }
 
 	// set watertype and waterlevel
 	idPhysics_Player::SetWaterLevel();
@@ -1574,6 +1643,7 @@ idPhysics_Player::idPhysics_Player( void ) {
     airJumps = 0;
     dashing = false;
     preDashSpeed = 0.0;
+    grappleTarget.Zero(),
 	waterLevel = WATERLEVEL_NONE;
 	waterType = 0;
 }
@@ -1648,6 +1718,8 @@ void idPhysics_Player::Save( idSaveGame *savefile ) const {
     savefile->WriteBool(dashing);
     savefile->WriteFloat(preDashSpeed);
 
+    savefile->WriteVec3( grappleTarget );
+
 	savefile->WriteInt( (int)waterLevel );
 	savefile->WriteInt( waterType );
 }
@@ -1689,6 +1761,8 @@ void idPhysics_Player::Restore( idRestoreGame *savefile ) {
 
     savefile->ReadBool( dashing );
     savefile->ReadFloat( preDashSpeed );
+
+    savefile->ReadVec3( grappleTarget );
 
 	savefile->ReadInt( (int &)waterLevel );
 	savefile->ReadInt( waterType );
@@ -1939,6 +2013,19 @@ void idPhysics_Player::StartDash( void ) {
     if (direction.Length() == 0) direction = forward;
 
     current.velocity = direction * doom3ternity_dash_speed.GetInteger();
+}
+
+/*
+================
+idPhysics_Player::StartGrapple
+================
+*/
+void idPhysics_Player::StartGrapple( const idVec3& target ) {
+    if (current.movementType != PM_GRAPPLING) {
+        //common->Printf("Grappling to %f, %f, %f\n", target.x, target.y, target.z);
+        current.movementType = PM_GRAPPLING;
+        grappleTarget = target;
+    }
 }
 
 /*

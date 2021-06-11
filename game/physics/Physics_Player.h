@@ -48,7 +48,8 @@ typedef enum {
 	PM_DEAD,				// no acceleration or turning, but free falling
 	PM_SPECTATOR,			// flying without gravity but with collision detection
 	PM_FREEZE,				// stuck in place without control
-	PM_NOCLIP				// flying without collision detection nor gravity
+	PM_NOCLIP,				// flying without collision detection nor gravity
+    PM_GRAPPLING            // spectator but with constant forwards velocity towards point
 } pmtype_t;
 
 typedef enum {
@@ -103,6 +104,7 @@ public:
 	const idVec3 &			PlayerGetOrigin( void ) const;	// != GetOrigin
 
     void                    StartDash( void );
+    void                    StartGrapple( const idVec3& target );
 
 public:	// common physics interface
 	bool					Evaluate( int timeStepMSec, int endTimeMSec );
@@ -176,6 +178,9 @@ private:
     bool                    dashing;
     float                   preDashSpeed;
 
+    // grappling
+    idVec3                  grappleTarget;
+
 	// results of last evaluate
 	waterLevel_t			waterLevel;
 	int						waterType;
@@ -192,6 +197,7 @@ private:
 	void					WalkMove( void );
 	void					DeadMove( void );
     void                    DashMove( void );
+    void                    GrappleMove( void );
 	void					NoclipMove( void );
 	void					SpectatorMove( void );
 	void					LadderMove( void );

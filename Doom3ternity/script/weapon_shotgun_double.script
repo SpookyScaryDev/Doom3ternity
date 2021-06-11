@@ -35,6 +35,8 @@ weapon_shotgun_double.script
 #define SHOTGUN_BIG_WIDTH			16		//22
 //#define SHOTGUN_BIG_HEIGHT			12		//15
 
+#define LOCKON_RANGE		10000 //minimum units away from enemy to lock-on
+#define LOCKON_ZRANGE		10000 //maximum z-difference between player and enemy for lock-on
 
 object weapon_shotgun_double : weapon_base {
 
@@ -48,6 +50,8 @@ object weapon_shotgun_double : weapon_base {
 	void		NoAmmo();
 	void		Fire();
 	void		Reload();
+
+    void        AlternateFire();
 
 	void		EjectBrass();
 
@@ -128,6 +132,9 @@ void weapon_shotgun_double::Idle() {
 			WEAPON_NETRELOAD = false;
 			weaponState( "Reload", SHOTGUN_DOUBLE_IDLE_TO_RELOAD );
 		}
+        if ( WEAPON_ALTERNATE_FIRE ) {
+			weaponState( "AlternateFire", 4 );
+        }
 		waitFrame();
 	}
 	weaponState( "Idle", SHOTGUN_DOUBLE_IDLE_TO_IDLE );
@@ -209,4 +216,30 @@ void weapon_shotgun_double::EjectBrass() {
 void weapon_shotgun_double::ExitCinematic() {
 	next_attack = 0;
 	weaponState( "Idle", 0 );
+}
+
+void weapon_shotgun_double::AlternateFire() {
+	// SnoopJeDi - here's the code for auto-lockon
+	entity owner = getOwner();
+	vector origin = owner.getOrigin();
+	origin_z += 50; // Not at the player's feet
+	vector ang = owner.getViewAngles();
+	vector dir = sys.angToForward( ang );
+	float mag = LOCKON_RANGE;
+	vector end = origin+dir*mag;
+	float result = sys.tracePoint( origin, end, MASK_MONSTERSOLID, owner ); // Look for a target
+	entity ent = sys.getTraceEntity();
+	string ent_class = ent.getKey( "spawnclass" );
+	if ( ent_class == "idAI" ) { // Squishy, or not?
+		vector ent_origin = ent.getOrigin();
+		if ( result * mag < LOCKON_RANGE && ent_origin_z - origin_z < LOCKON_ZRANGE ) { // Range test
+            origin_z -= 50;
+            //ent_origin_z += 50;
+            vector target = ent_origin - origin;
+            target = target - (sys.vecNormalize(target) * 200);
+            target = origin + target;
+            owner.startGrapple(target);
+		}
+	}
+	weaponState( "Idle", 4 );
 }
